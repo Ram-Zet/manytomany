@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,7 +21,14 @@ public class Card {
 
     private String form;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
-    List<Link> links = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(schema = "manytomany", name = "link",
+            joinColumns = {
+                    @JoinColumn(name = "id_status", referencedColumnName = "id_status"),
+                    @JoinColumn(name = "form", referencedColumnName = "form")
+            },
+            inverseJoinColumns = @JoinColumn(name = "id_action", referencedColumnName = "id_action")
+    )
+    Set<CardAction> actions = new HashSet<>();
 
 }

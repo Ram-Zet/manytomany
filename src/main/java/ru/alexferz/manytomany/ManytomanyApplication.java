@@ -22,8 +22,8 @@ public class ManytomanyApplication {
             List<Card> all = cardRepository.findAll();
             for (Card card: all) {
                 System.out.println("Card Id: " + card.getId());
-                card.getLinks().forEach(link -> {
-                    System.out.println(link.getAction().getAction());
+                card.getActions().forEach(action -> {
+                    System.out.println(action.getAction());
                 });
                 System.out.println("====================");
             }
